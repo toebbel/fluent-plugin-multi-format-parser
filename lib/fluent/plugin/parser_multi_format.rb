@@ -29,15 +29,14 @@ module Fluent
             begin
               parser.parse(text) { |time, record|
                 if record
-                  yield time, record
-                  return
+                  return time, record
                 end
               }
             rescue # ignore parser error
             end
           }
 
-          yield nil, nil
+          return Time.now, text
         end
       end
     else # support old API. Will be removed.
